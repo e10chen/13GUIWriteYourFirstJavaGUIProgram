@@ -154,7 +154,7 @@ public class Main extends Application {
         stage.setScene(myFirstScene);
 
         stage.setWidth(300);
-        stage.setHeight(500);
+        stage.setHeight(750);
 
         myFirstScene.setCursor(Cursor.CROSSHAIR);
 
