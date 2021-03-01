@@ -13,6 +13,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -47,6 +48,7 @@ public class Main extends Application {
     FileInputStream Robux4image;
     Image Robux4;
     ImageView Robux4View;
+    Button ChooseImageButton;
 
     public static void main(String[] args) {
 	// write your code here
@@ -97,8 +99,8 @@ public class Main extends Application {
         Robux4image =  new FileInputStream("C:\\Users\\Ethan\\Desktop\\Robux4.jpg");
         Robux4 = new Image(Robux4image);
         Robux4View = new ImageView(Robux4);
-        Robux4View.setFitHeight(100);
-        Robux4View.setFitWidth(100);
+        Robux4View.setFitHeight(200);
+        Robux4View.setFitWidth(200);
 
 
             // Checkboxes
@@ -117,44 +119,60 @@ public class Main extends Application {
         });
 
         //Toggle imagae
-        toggleImage = new ToggleButton("Image1");
-        toggleImage2 = new ToggleButton("Image2");
-        toggleImage3 = new ToggleButton("Image3");
+        toggleImage = new ToggleButton("Switch Image");
+        toggleImage2 = new ToggleButton("Switch Image");
+     //   toggleImage3 = new ToggleButton("Image3");
         toggleImageGroup = new ToggleGroup();
         toggleImage.setToggleGroup(toggleImageGroup);
         toggleImage2.setToggleGroup(toggleImageGroup);
-        toggleImage3.setToggleGroup(toggleImageGroup);
+     //   toggleImage3.setToggleGroup(toggleImageGroup);
 
 
         toggleImage.setOnAction(actionEvent -> {
             boolean isSelected = toggleImage.isSelected();
-            Robux2View.setVisible(isSelected);
+            if (isSelected) {
+                Robux2View.setImage(Robux3);
+            } else {
+                Robux2View.setImage(Robux2);
+            }
+
         });
 
         toggleImage2.setOnAction(actionEvent -> {
             boolean isSelected = toggleImage2.isSelected();
-            Robux3View.setVisible(isSelected);
+           if (isSelected) {
+                Robux3View.setImage(Robux3);
+            } else {
+                Robux3View.setImage(Robux4);
+            }
         });
 
-        toggleImage3.setOnAction(actionEvent -> {
-            boolean isSelected = toggleImage3.isSelected();
-            Robux4View.setVisible(isSelected);
-        });
+   //     toggleImage3.setOnAction(actionEvent -> {
+   //         boolean isSelected = toggleImage3.isSelected();
+   //         Robux4View.setVisible(isSelected);
+    //    });
 
             // Text
         Text = new Label("CLICK IT NOW!");
         robuxText = new Label("SELECT HOW MANY ROBUX YOU WANT!");
 
+        fileChooser = new FileChooser();
+        ChooseImageButton = new Button("Choose File");
+        ChooseImageButton.setOnAction(e -> {
+                File selectedFile = fileChooser.showOpenDialog(stage);
+            Robux4View.setImage(new Image(selectedFile.toURI().toString()));
+    });
+
 
             //create Layout
-        VBox myLayout = new VBox( RobloxLogoView, RobuxImageView, Robux2View, toggleImage, Robux3View, toggleImage2, Robux4View, toggleImage3, robuxText, option1, option2, option3, Text, myFirstButton, myFirstCheckBox);
+        VBox myLayout = new VBox( RobloxLogoView, RobuxImageView, Robux2View, toggleImage, Robux3View, toggleImage2, Robux4View, ChooseImageButton, robuxText, option1, option2, option3, Text, myFirstButton, myFirstCheckBox);
 
         // create Scene
         Scene myFirstScene = new Scene(myLayout);
         stage.setScene(myFirstScene);
 
-        stage.setWidth(300);
-        stage.setHeight(750);
+        stage.setWidth(800);
+        stage.setHeight(900);
 
         myFirstScene.setCursor(Cursor.CROSSHAIR);
 
